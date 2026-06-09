@@ -3,23 +3,22 @@
 # A FORMULA (not a cask): casks model GUI .app bundles and do NOT register a
 # `brew services` daemon. The `service` block below is the supported way to register
 # the local-gateway under launchd — exactly the laptop Box Gateway model (ADR 0017).
-# macOS-only artifacts (no `on_linux`): Linux installs via apt, not Linuxbrew.
+# macOS-only artifacts (no `on_linux`): Linux installs via apt, not Linuxbrew. Lives
+# in the custom tap `sriviswanath/homebrew-talky`;
 # {{...}} placeholders are stamped at release time by build.sh (version + sha256).
-# The bootstrap downloads this stamped formula from dl.talky.so, verifies it via
-# checksums.txt, then hands the local formula file to Homebrew.
 class Talky < Formula
   desc "Talky CLI + local-gateway daemon (the laptop Box Gateway)"
   homepage "https://talky.so"
-  version "0.0.0+g4015e17f"
+  version "0.0.0+gf1f8a212"
 
   on_macos do
     on_arm do
-      url "https://dl.talky.so/v0.0.0+g4015e17f/talky_0.0.0+g4015e17f_darwin_arm64.tar.gz"
-      sha256 "2ce02cc7b615dda35db2682f47349550425748755d29fee53984636140243234"
+      url "https://dl.talky.so/v0.0.0+gf1f8a212/talky_0.0.0+gf1f8a212_darwin_arm64.tar.gz"
+      sha256 "9d92326219949af969287ed3758d8e7721ae950a7957df87c092ea14abbfbb4d"
     end
     on_intel do
-      url "https://dl.talky.so/v0.0.0+g4015e17f/talky_0.0.0+g4015e17f_darwin_amd64.tar.gz"
-      sha256 "723a25c36c1ac248ce8a2b13a942d45c01a6c206a2b19560397029c8a2811901"
+      url "https://dl.talky.so/v0.0.0+gf1f8a212/talky_0.0.0+gf1f8a212_darwin_amd64.tar.gz"
+      sha256 "3edfe92fe80777acf4766e2fc1646afc279f98072357509c4cdc3425fee39bd5"
     end
   end
 
