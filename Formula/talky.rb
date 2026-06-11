@@ -9,16 +9,16 @@
 class Talky < Formula
   desc "Talky CLI + local-gateway daemon (the laptop Box Gateway)"
   homepage "https://talky.so"
-  version "0.1.0-22-g03990a17"
+  version "0.1.0-34-g687af9dd"
 
   on_macos do
     on_arm do
-      url "https://dl.talky.so/v0.1.0-22-g03990a17/talky_0.1.0-22-g03990a17_darwin_arm64.tar.gz"
-      sha256 "3f4b4d5e573d03bedea4de59d2abdaad999cba53dd9d2be1d914b3282be6b4d2"
+      url "https://dl.talky.so/v0.1.0-34-g687af9dd/talky_0.1.0-34-g687af9dd_darwin_arm64.tar.gz"
+      sha256 "d1c5854442bf1eb6ddd43d1d19aae27b4d98d5dc250b8ff23c2923663a99a8a8"
     end
     on_intel do
-      url "https://dl.talky.so/v0.1.0-22-g03990a17/talky_0.1.0-22-g03990a17_darwin_amd64.tar.gz"
-      sha256 "37bb00def70dc6ff7cf01d173c989bfcbcff2e196a4f98460a268ff652321363"
+      url "https://dl.talky.so/v0.1.0-34-g687af9dd/talky_0.1.0-34-g687af9dd_darwin_amd64.tar.gz"
+      sha256 "9ce7b997bfeff0a3ae75818f1c7885e9fabb2fe5aaa3d24c18f35595c9c646dd"
     end
   end
 
@@ -31,8 +31,8 @@ class Talky < Formula
   end
 
   # `brew services start talky` registers the daemon under launchd (per-user). The
-  # daemon dials OUT to the hub (no inbound) and reads the owner-only link config
-  # created by the iOS laptop-link command.
+  # daemon dials OUT to the hub (no inbound) and reads the owner-only config that
+  # `talky login` writes when it registers this machine as a box (ADR 0028).
   service do
     run [opt_bin/"talky-local-gateway", "--config", "#{Dir.home}/.talky/local-gateway.json"]
     keep_alive true
@@ -49,11 +49,11 @@ class Talky < Formula
 
   def caveats
     <<~EOS
-      Link this Mac from your phone:
-        1. In Talky iOS, open Boxes and tap "Link Mac".
-        2. Run the command it shows in this terminal.
-      The link command writes ~/.talky/local-gateway.json and (re)starts the
-      brew service. State lives in ~/.talky (local-gateway.json + proxy.token).
+      Next: run `talky login` — it signs you in AND registers this Mac as one of
+      your boxes; the daemon (brew service) starts automatically.
+      State lives in ~/.talky (local-gateway.json + proxy.token).
+      Troubleshooting — if the daemon is not running after login, start it with
+        brew services start sriviswanath/talky/talky
     EOS
   end
 
