@@ -9,16 +9,16 @@
 class Talky < Formula
   desc "Talky CLI + local-gateway daemon (the laptop Box Gateway)"
   homepage "https://talky.so"
-  version "0.1.0-47-ga27b3609"
+  version "0.1.0-65-ga7672079"
 
   on_macos do
     on_arm do
-      url "https://dl.talky.so/v0.1.0-47-ga27b3609/talky_0.1.0-47-ga27b3609_darwin_arm64.tar.gz"
-      sha256 "a8fd86ae910f5c1ac7f5b606bc2d4c47f72233fb63c501e6380a7ff53f69bc35"
+      url "https://dl.talky.so/v0.1.0-65-ga7672079/talky_0.1.0-65-ga7672079_darwin_arm64.tar.gz"
+      sha256 "43021037f16da544a818534dc145e39bc35fcd36462358beebf27dd585a7f8d2"
     end
     on_intel do
-      url "https://dl.talky.so/v0.1.0-47-ga27b3609/talky_0.1.0-47-ga27b3609_darwin_amd64.tar.gz"
-      sha256 "ad95862c87c97099d755fc88df84b962cc04b8ef55104738d4c5af4521b6ae52"
+      url "https://dl.talky.so/v0.1.0-65-ga7672079/talky_0.1.0-65-ga7672079_darwin_amd64.tar.gz"
+      sha256 "9ae3ae5438272d34e60bd89be69654624366a25a0d82b70dbd3f6656b84c595a"
     end
   end
 
@@ -39,12 +39,14 @@ class Talky < Formula
     run_at_load true
     # Explicit PATH: launchd's default (/usr/bin:/bin:/usr/sbin:/sbin) misses Homebrew
     # and common user bins, so the daemon could not find tmux or the agent CLIs it
-    # spawns. ONLY PATH + TALKY_HOME here — never secrets (tokens live in owner-only
-    # files under ~/.talky).
-    environment_variables PATH:       "#{Dir.home}/.local/bin:#{HOMEBREW_PREFIX}/bin:#{HOMEBREW_PREFIX}/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
-                          TALKY_HOME: "#{Dir.home}/.talky"
+    # spawns. TALKY_LOG_FILE lets the process rotate its own logs; keep launchd stderr
+    # on a separate fallback file so service-manager writes never race the daemon's
+    # rotation. Never secrets here; tokens live in owner-only files under ~/.talky.
+    environment_variables PATH:           "#{Dir.home}/.local/bin:#{HOMEBREW_PREFIX}/bin:#{HOMEBREW_PREFIX}/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+                          TALKY_HOME:     "#{Dir.home}/.talky",
+                          TALKY_LOG_FILE: "#{var}/log/talky/local-gateway.err.log"
     log_path var/"log/talky/local-gateway.out.log"
-    error_log_path var/"log/talky/local-gateway.err.log"
+    error_log_path var/"log/talky/local-gateway.stderr.log"
   end
 
   def caveats
