@@ -9,21 +9,26 @@
 class Talky < Formula
   desc "Talky CLI + local-gateway daemon (the laptop Box Gateway)"
   homepage "https://talky.so"
-  version "0.1.0-328-g65e9d9d3"
+  version "0.1.0-397-g31f36d3c"
 
   on_macos do
     on_arm do
-      url "https://dl.talky.so/v0.1.0-328-g65e9d9d3/talky_0.1.0-328-g65e9d9d3_darwin_arm64.tar.gz"
-      sha256 "e627371ccda156445a18cfe886ef8094e3ed2a010c61201f9d58e4b10ac3e1cf"
+      url "https://dl.talky.so/v0.1.0-397-g31f36d3c/talky_0.1.0-397-g31f36d3c_darwin_arm64.tar.gz"
+      sha256 "a547a214e9e1b732fc61181356e954b46574036baacef401f44f80c8ced6f81e"
     end
     on_intel do
-      url "https://dl.talky.so/v0.1.0-328-g65e9d9d3/talky_0.1.0-328-g65e9d9d3_darwin_amd64.tar.gz"
-      sha256 "dffcdc2f618d0915fc0cceea52f6addd37525fd4efbe7d25582331bb2f4a6f16"
+      url "https://dl.talky.so/v0.1.0-397-g31f36d3c/talky_0.1.0-397-g31f36d3c_darwin_amd64.tar.gz"
+      sha256 "34a354987a71e01ad7920d60c764fd12a4c30c3c8539ccd400bbf569bdb924a0"
     end
   end
 
   # The daemon spawns Talky-branded tmux sessions (ADR 0018) — tmux must be present.
   depends_on "tmux"
+  # The laptop Hermes runtime runs INSIDE a Lima microVM (the content-isolated boundary,
+  # ADR 0039 §5) — pull Lima in here so a fresh `brew install` of talky brings everything
+  # `talky install hermes` needs (macOS bundles the Virtualization.framework hypervisor,
+  # so Lima is the only extra host dependency). One-step setup, not a manual prerequisite.
+  depends_on "lima"
 
   def install
     bin.install "talky"
