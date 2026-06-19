@@ -2,30 +2,30 @@
 #
 # A FORMULA (not a cask): casks model GUI .app bundles and do NOT register a
 # `brew services` daemon. The `service` block below is the supported way to register
-# the local-gateway under launchd — exactly the laptop Box Gateway model (ADR 0017).
+# the local-gateway under launchd — exactly the laptop Box Gateway model (ADR 0021).
 # macOS-only artifacts (no `on_linux`): Linux installs via apt, not Linuxbrew. Lives
 # in the custom tap `sriviswanath/homebrew-talky`;
 # {{...}} placeholders are stamped at release time by build.sh (version + sha256).
 class Talky < Formula
   desc "Talky CLI + local-gateway daemon (the laptop Box Gateway)"
   homepage "https://talky.so"
-  version "0.1.0-397-g31f36d3c"
+  version "0.1.0-436-g72a020a8"
 
   on_macos do
     on_arm do
-      url "https://dl.talky.so/v0.1.0-397-g31f36d3c/talky_0.1.0-397-g31f36d3c_darwin_arm64.tar.gz"
-      sha256 "a547a214e9e1b732fc61181356e954b46574036baacef401f44f80c8ced6f81e"
+      url "https://dl.talky.so/v0.1.0-436-g72a020a8/talky_0.1.0-436-g72a020a8_darwin_arm64.tar.gz"
+      sha256 "7aa4a68a3d2b90a53ba967c120132aecf0aeb97fce8f647df44a23b011645612"
     end
     on_intel do
-      url "https://dl.talky.so/v0.1.0-397-g31f36d3c/talky_0.1.0-397-g31f36d3c_darwin_amd64.tar.gz"
-      sha256 "34a354987a71e01ad7920d60c764fd12a4c30c3c8539ccd400bbf569bdb924a0"
+      url "https://dl.talky.so/v0.1.0-436-g72a020a8/talky_0.1.0-436-g72a020a8_darwin_amd64.tar.gz"
+      sha256 "d20a08e59f8e4580c1ea8785ca31e624378f654ed78577a8ceabcfa4a5729e07"
     end
   end
 
-  # The daemon spawns Talky-branded tmux sessions (ADR 0018) — tmux must be present.
+  # The daemon spawns Talky-branded tmux sessions (ADR 0022) — tmux must be present.
   depends_on "tmux"
   # The laptop Hermes runtime runs INSIDE a Lima microVM (the content-isolated boundary,
-  # ADR 0039 §5) — pull Lima in here so a fresh `brew install` of talky brings everything
+  # ADR 0031 §7) — pull Lima in here so a fresh `brew install` of talky brings everything
   # `talky install hermes` needs (macOS bundles the Virtualization.framework hypervisor,
   # so Lima is the only extra host dependency). One-step setup, not a manual prerequisite.
   depends_on "lima"
@@ -37,7 +37,7 @@ class Talky < Formula
 
   # `brew services start talky` registers the daemon under launchd (per-user). The
   # daemon dials OUT to the hub (no inbound) and reads the owner-only config that
-  # `talky login` writes when it registers this machine as a box (ADR 0028).
+  # `talky login` writes when it registers this machine as a box (ADR 0010).
   service do
     run [opt_bin/"talky-local-gateway", "--config", "#{Dir.home}/.talky/local-gateway.json"]
     keep_alive true
