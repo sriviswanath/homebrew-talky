@@ -9,16 +9,16 @@
 class Talky < Formula
   desc "Talky CLI + local-gateway daemon (the laptop Box Gateway)"
   homepage "https://talky.so"
-  version "0.1.0-837-gb46a8d02"
+  version "0.1.0-880-ge9788717"
 
   on_macos do
     on_arm do
-      url "https://dl.talky.so/v0.1.0-837-gb46a8d02/talky_0.1.0-837-gb46a8d02_darwin_arm64.tar.gz"
-      sha256 "6bc57bdcfc72e8ec8b3be2c6f414e058404c99334bac1115e2dccd599638c922"
+      url "https://dl.talky.so/v0.1.0-880-ge9788717/talky_0.1.0-880-ge9788717_darwin_arm64.tar.gz"
+      sha256 "29dcaa417e60c69a25677e283a52c1551ca650d1bc7019094dda3194b89d8efc"
     end
     on_intel do
-      url "https://dl.talky.so/v0.1.0-837-gb46a8d02/talky_0.1.0-837-gb46a8d02_darwin_amd64.tar.gz"
-      sha256 "fd3c73f7cc7138891e1c5e7ee21201a4f203d5d6d7999992c279ca6764efd034"
+      url "https://dl.talky.so/v0.1.0-880-ge9788717/talky_0.1.0-880-ge9788717_darwin_amd64.tar.gz"
+      sha256 "4d2cfa8b8f268c298edcd6de4e94a42433a57277a86d407cacb7719b402ec426"
     end
   end
 
@@ -33,6 +33,9 @@ class Talky < Formula
   def install
     bin.install "talky"
     bin.install "talky-local-gateway"
+    # The agent-status writer the Claude/Codex hooks invoke. Installed as a sibling of
+    # talky so `talky login`/`talky watch` wires a binary that actually exists.
+    bin.install "talky-status"
   end
 
   # `brew services start talky` registers the daemon under launchd (per-user). The
@@ -56,10 +59,10 @@ class Talky < Formula
 
   def caveats
     <<~EOS
-      Next: run `talky login` — it signs you in AND registers this Mac as one of
+      Next: run `talky login`. It signs you in AND registers this Mac as one of
       your boxes; the daemon (brew service) starts automatically.
       State lives in ~/.talky (local-gateway.json + proxy.token).
-      Troubleshooting — if the daemon is not running after login, start it with
+      Troubleshooting: if the daemon is not running after login, start it with
         brew services start sriviswanath/talky/talky
     EOS
   end
