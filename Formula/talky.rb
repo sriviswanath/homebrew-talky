@@ -14,11 +14,11 @@ class Talky < Formula
   on_macos do
     on_arm do
       url "https://dl.talky.so/v0.1.0-2197-g5783dac75/talky_0.1.0-2197-g5783dac75_darwin_arm64.tar.gz"
-      sha256 "3b87a3ec8b2606c5e3cbe4bec99732df8b6f0b0a95f10cf40b5ec657bd308d43"
+      sha256 "c666a4321dacd1ff5a63385e3b99879d1ba30d1f9810f5c70617f3bd415f9901"
     end
     on_intel do
       url "https://dl.talky.so/v0.1.0-2197-g5783dac75/talky_0.1.0-2197-g5783dac75_darwin_amd64.tar.gz"
-      sha256 "28b6df224ff99ee6e81b66c98b1ee0fa81cf53d74629910378d6812432af2ef2"
+      sha256 "9502800efcbbbe47b5a4c9e00a87dc4bb96f3e6b263d903699e9b463b05bc008"
     end
   end
 
