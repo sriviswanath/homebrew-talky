@@ -9,16 +9,16 @@
 class Talky < Formula
   desc "Talky CLI + local-gateway daemon (the laptop Box Gateway)"
   homepage "https://talky.so"
-  version "0.1.0-2356-gec609e5e6"
+  version "0.1.0-2370-gc72aaf4d5"
 
   on_macos do
     on_arm do
-      url "https://dl.talky.so/v0.1.0-2356-gec609e5e6/talky_0.1.0-2356-gec609e5e6_darwin_arm64.tar.gz"
-      sha256 "c63a9f0f37fea2e7a8e170b221ea747fd9a98f37608cee30ad876e6a0e04cf53"
+      url "https://dl.talky.so/v0.1.0-2370-gc72aaf4d5/talky_0.1.0-2370-gc72aaf4d5_darwin_arm64.tar.gz"
+      sha256 "ce1f7ff80c7556bb4230c24827b16c39a85078016fac49374e8840c6cc539e3e"
     end
     on_intel do
-      url "https://dl.talky.so/v0.1.0-2356-gec609e5e6/talky_0.1.0-2356-gec609e5e6_darwin_amd64.tar.gz"
-      sha256 "bbc6f6e21d6a3c31254eb8dd7c79c31d268283de8b11fdf7a00b662addab3740"
+      url "https://dl.talky.so/v0.1.0-2370-gc72aaf4d5/talky_0.1.0-2370-gc72aaf4d5_darwin_amd64.tar.gz"
+      sha256 "f341f87896678d172c5fc032a6a7be3cdc2b82d22d875469334c50a65338c9cc"
     end
   end
 
