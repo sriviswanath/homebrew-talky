@@ -19,8 +19,8 @@
 # {{...}} placeholders are stamped at release time by tools/packaging/mac-app-release.sh
 # from the NOTARIZED, STAPLED bundle it produced, never by hand.
 cask "talky" do
-  version "0.1.0-3809-ge4dc92f8a"
-  sha256 "61ceb0873c92c55df8cba9912cc6160643c6e68fa392e475015b68621cf830c4"
+  version "0.1.0-3828-g56a30f304"
+  sha256 "12db6b68c2cfd253568636ef665bd8d8ffd7b115aed0ff34a7804ecd5870c156"
 
   url "https://dl.talky.so/v#{version}/Talky-#{version}.zip"
   name "Talky"
